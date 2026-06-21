@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>资料索引 · mk体育 信息导航</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans SC', sans-serif;
+            background-color: #f5f6f8;
+            color: #1e293b;
+            line-height: 1.6;
+            padding: 0 1.5rem;
+        }
+        a {
+            color: #1a5c9e;
+            text-decoration: none;
+            border-bottom: 1px dotted rgba(26,92,158,0.25);
+            transition: border-color 0.2s, color 0.2s;
+        }
+        a:hover {
+            color: #0b3b6b;
+            border-bottom-color: #0b3b6b;
+        }
+
+        /* 顶部导航 */
+        .site-header {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.2rem 0 0.8rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #dee2e9;
+        }
+        .site-brand {
+            font-size: 1.35rem;
+            font-weight: 550;
+            letter-spacing: 0.02em;
+            color: #14273e;
+        }
+        .site-nav {
+            display: flex;
+            gap: 1.8rem;
+            flex-wrap: wrap;
+            margin-top: 0.2rem;
+        }
+        .site-nav a {
+            font-size: 0.95rem;
+            font-weight: 450;
+            color: #334155;
+            border-bottom: none;
+            padding: 0.25rem 0;
+        }
+        .site-nav a:hover {
+            color: #0b3b6b;
+            border-bottom: 2px solid #1a5c9e;
+            padding-bottom: 0.15rem;
+        }
+
+        /* 内容容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2.2rem 0 3rem 0;
+        }
+
+        /* hero 区 – 简洁引言 */
+        .hero {
+            background: #ffffff;
+            border-radius: 22px;
+            padding: 2.8rem 2.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02), 0 1px 3px rgba(0,0,0,0.04);
+            border: 1px solid #e6eaf0;
+        }
+        .hero h1 {
+            font-size: 2.1rem;
+            font-weight: 540;
+            letter-spacing: -0.01em;
+            color: #132030;
+            margin-bottom: 0.6rem;
+            line-height: 1.2;
+        }
+        .hero .subhead {
+            font-size: 1.1rem;
+            color: #475569;
+            max-width: 680px;
+            margin-bottom: 1.2rem;
+        }
+        .hero p {
+            color: #3d4b60;
+            max-width: 750px;
+        }
+
+        /* 卡片网格 – 场景模块 */
+        .scene-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.8rem;
+            margin-bottom: 2.8rem;
+        }
+        .scene-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 1.8rem 1.6rem 2rem 1.6rem;
+            border: 1px solid #e1e5ed;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            transition: box-shadow 0.2s, transform 0.15s;
+        }
+        .scene-card:hover {
+            box-shadow: 0 6px 16px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.02);
+            transform: translateY(-3px);
+        }
+        .scene-card h3 {
+            font-size: 1.25rem;
+            font-weight: 530;
+            color: #1c2d44;
+            margin-bottom: 0.7rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 1px solid #edf0f5;
+        }
+        .scene-card p {
+            color: #3d4b60;
+            font-size: 0.97rem;
+        }
+        .scene-card .tag {
+            display: inline-block;
+            margin-top: 0.8rem;
+            font-size: 0.8rem;
+            color: #59748f;
+            background: #eef2f7;
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
+            letter-spacing: 0.02em;
+        }
+
+        /* 介绍 + 索引段落 */
+        .intro-block {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 2rem 2.2rem;
+            margin-bottom: 2.5rem;
+            border: 1px solid #e6eaf0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.01);
+        }
+        .intro-block h2 {
+            font-size: 1.5rem;
+            font-weight: 530;
+            color: #1c2d44;
+            margin-bottom: 0.9rem;
+        }
+        .intro-block p {
+            margin-bottom: 1rem;
+            color: #334155;
+        }
+        .intro-block ul {
+            list-style: none;
+            padding-left: 0.2rem;
+            margin-bottom: 1rem;
+        }
+        .intro-block li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #39485e;
+            font-size: 0.97rem;
+        }
+        .intro-block li::before {
+            content: "▹";
+            position: absolute;
+            left: 0.1rem;
+            color: #1a5c9e;
+            font-weight: 500;
+        }
+
+        /* FAQ 摘要 – 常见说明 */
+        .faq-mini {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0 1.2rem 0;
+        }
+        .faq-item {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 1.2rem 1.4rem;
+            border: 1px solid #e3e7ef;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.01);
+        }
+        .faq-item .q {
+            font-weight: 540;
+            color: #1b2c40;
+            margin-bottom: 0.25rem;
+            font-size: 0.98rem;
+        }
+        .faq-item .a {
+            color: #475569;
+            font-size: 0.92rem;
+        }
+
+        .info-note {
+            background: #f1f4fa;
+            border-radius: 18px;
+            padding: 1.2rem 1.6rem;
+            border-left: 4px solid #1a5c9e;
+            margin: 2rem 0 1.2rem 0;
+            font-size: 0.95rem;
+            color: #2b3d55;
+        }
+
+        /* 页脚 */
+        .site-footer {
+            max-width: 1200px;
+            margin: 1.8rem auto 2rem auto;
+            padding-top: 1.2rem;
+            border-top: 1px solid #dce1e9;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.88rem;
+            color: #5f6d80;
+        }
+        .site-footer a {
+            color: #2c4a71;
+            border-bottom: none;
+        }
+
+        /* 响应式 */
+        @media (max-width: 640px) {
+            body { padding: 0 1rem; }
+            .site-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+            .hero { padding: 1.8rem 1.2rem; }
+            .hero h1 { font-size: 1.7rem; }
+            .intro-block { padding: 1.5rem 1.2rem; }
+            .scene-card { padding: 1.4rem; }
+            .faq-item { padding: 1rem; }
+        }
+        @media (max-width: 480px) {
+            .site-nav { gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <span class="site-brand">📋 体育资料整理</span>
+    <nav class="site-nav">
+        <a href="#intro">概况</a>
+        <a href="#scenes">场景</a>
+        <a href="#faq">常见说明</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <!-- hero -->
+    <div class="hero">
+        <h1>信息索引 · 体育内容组织</h1>
+        <div class="subhead">以资料整理的方式梳理体育资讯的结构、来源与使用场景。</div>
+        <p>在信息碎片化的环境下，对体育内容进行归类、索引和比对，有助于快速定位所需信息。下面从三个典型场景出发，介绍如何借助 <a href="https://panel--mksport.com">mk体育</a> 的资源结构建立自己的阅读路径。</p>
+    </div>
+
+    <!-- 介绍块：基于资料整理的视角 -->
+    <div class="intro-block" id="intro">
+        <h2>从信息整理说起</h2>
+        <p>体育领域的信息通常分散在多处：赛事数据、队伍动态、赛程变动、深度分析……如果缺少一个清晰的索引框架，查找效率会明显下降。一套稳定的信息面板，可以帮助我们实现三件事：</p>
+        <ul>
+            <li><strong>归类</strong> – 将零散内容按联赛、项目、时间线分组，减少重复搜索。</li>
+            <li><strong>锚定来源</strong> – 固定使用同一个信息入口，长期积累后更容易形成上下文连贯的认知。</li>
+            <li><strong>动态跟进</strong> – 借助结构化的界面，快速感知赛程变化或重要通知，而不必逐个网站翻找。</li>
+        </ul>
+        <p>在实际使用中，很多人会把 <a href="https://panel--mksport.com">mk体育</a> 当作一个中心节点，围绕它建立自己关注的联赛或队伍清单。这种「以面板为锚点」的方式，在长期信息管理上比零散收藏更省力。</p>
+    </div>
+
+    <!-- 三个场景卡片 -->
+    <div id="scenes">
+        <h2 style="font-weight:530; font-size:1.4rem; color:#1c2d44; margin-bottom:1.2rem;">三种常见应用场景</h2>
+        <div class="scene-grid">
+            <div class="scene-card">
+                <h3>📊 赛事节奏追踪</h3>
+                <p>对比赛日密集的体育项目（如足球、篮球、电竞赛事），需要实时掌握下一场的时间、对阵以及近期结果。通过统一的面板浏览赛历，比在多个平台切换节省不少精力。</p>
+                <span class="tag">赛程 · 日历视角</span>
+            </div>
+            <div class="scene-card">
+                <h3>📁 队伍与选手档案</h3>
+                <p>无论是深度爱好者还是内容创作者，经常需要查阅某支队伍的历史交锋记录或选手近期状态。建立一个小型索引库，把相关链接和备注集中存放，长期下来会成为个人资料资产。</p>
+                <span class="tag">档案 · 资料卡片</span>
+            </div>
+            <div class="scene-card">
+                <h3>🔍 资讯二次筛选</h3>
+                <p>每天各类体育新闻层出不穷，通过关键词或联赛标签进行二次筛选，只阅读与自己关注领域相关的内容。配合订阅或面板收藏功能，信息过载会明显减轻。</p>
+                <span class="tag">筛选 · 信息流管理</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 常见说明 (FAQ 摘要) -->
+    <div id="faq" style="margin-top: 0.8rem;">
+        <h2 style="font-weight:530; font-size:1.4rem; color:#1c2d44; margin-bottom:1rem;">常见说明与使用提示</h2>
+        <div class="faq-mini">
+            <div class="faq-item">
+                <div class="q">❓ 从哪个模块开始比较顺手？</div>
+                <div class="a">建议先浏览面板内的赛程总览或联赛索引，根据自己关注的运动项目进入对应分区，之后逐步添加收藏或备注。</div>
+            </div>
+            <div class="faq-item">
+                <div class="q">❓ 有必要把链接全部记下来吗？</div>
+                <div class="a">不需要。好的索引方式是把 <a href="https://panel--mksport.com">mk体育</a> 作为一个固定起点，每次从它出发，而不是记忆多个分散地址。</div>
+            </div>
+            <div class="faq-item">
+                <div class="q">❓ 信息更新频率如何？</div>
+                <div class="a">不同联赛和项目更新节奏不同，通常比赛日前后变化较快。建议结合自己的关注列表定期查看面板上的动态标识。</div>
+            </div>
+        </div>
+
+        <div class="info-note">
+            💡 整理思路：把体育信息当作一个不断生长的知识库，保持入口统一、分类清晰，比追求“一次看完”更可持续。参考 <a href="https://panel--mksport.com">mk体育</a> 的结构，可以快速搭起自己的信息框架。
+        </div>
+    </div>
+
+</div>
+
+<footer class="site-footer">
+    <span>资料导航 · 体育内容整理</span>
+    <span><a href="https://panel--mksport.com">mk体育</a> 作为信息索引节点</span>
+</footer>
+
+</body>
+</html>
